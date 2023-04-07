@@ -1,0 +1,25 @@
+{
+  "name": "oaf",
+  "version": "1.0.0",
+  "description": "My cool project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "npx nodemon"
+  },
+  "keywords": [
+    "crypto",
+    "xchain",
+    "blockchain"
+  ],
+  "author": "felix",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "typescript": "^5.0.3"
+  },
+  "dependencies": {
+    "ethers": "^6.2.3",
+    "typeorm": "^0.3.13"
+  }
+}
