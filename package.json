@@ -19,7 +19,7 @@
     "typescript": "^5.0.3"
   },
   "dependencies": {
-    "ethers": "^6.2.3",
+    "ethers": "^6.3.0",
     "typeorm": "^0.3.13"
   }
 }
