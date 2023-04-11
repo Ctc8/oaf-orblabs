@@ -193,3 +193,40 @@ git commit -am "initializing the project" && git push -u origin adding-pg-and-ty
 ```
 > https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request 
 > https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request
+
+
+## Week 3 -> Cost of bridging USDC from Ethereum using Stargate
+
+# Learning Goals
+1. Intro to smart contracts
+2. Intro to smart contract tokens: ERC20
+3. ABIs
+4. Gas fees
+5. Writing from blockchains
+3. Listening to blockchain events
+>> Reading from blockchains
+>> Writing a listener
+>> Parsing the events
+>> writing the events/data to the DB
+
+
+# Assignment: Create an interface to show how the cost of bridging USDC from Ethereum using Stargate varies over time
+
+Resource: https://stargateprotocol.gitbook.io/ 
+
+1. Figure out the data you want to finally save and create a PostgreSQL schema for this
+- time/timestamp
+- prices in cents; 
+   - how do we save this? 
+   - why do we keep it in cents?
+- Anything else you want to save?
+
+2. Reading and saving data
+- Options:
+   - Periodically make a call to get the cost and save to DB: https://stargateprotocol.gitbook.io/stargate/developers/cross-chain-swap-fee 
+   - Or, listen to events, filter those with USDC from Stargate, save the events to the DB
+
+3. [Stretch Goal] Access/display the data
+- Options: 
+   - create a react app / graph to display values
+   - given 2 arguments at startup time, return the price / fees
