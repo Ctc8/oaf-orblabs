@@ -212,7 +212,10 @@ git commit -am "initializing the project" && git push -u origin adding-pg-and-ty
 
 # Assignment: Create an interface to show how the cost of bridging USDC from Ethereum using Stargate varies over time
 
-Resource: https://stargateprotocol.gitbook.io/ 
+Resource: 
+- Stargate: https://stargateprotocol.gitbook.io/ 
+- ERC20: https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol 
+- Ethereum Logs Hands-On with Ethers.js: https://medium.com/@kaishinaw/ethereum-logs-hands-on-with-ethers-js-a28dde44cbb6 
 
 1. Figure out the data you want to finally save and create a PostgreSQL schema for this
 - time/timestamp
@@ -230,3 +233,18 @@ Resource: https://stargateprotocol.gitbook.io/
 - Options: 
    - create a react app / graph to display values
    - given 2 arguments at startup time, return the price / fees
+
+
+Here is the step by step guide:
+
+1. Get the address of Stargate router contract: https://etherscan.io/txs?a=0x8731d54E9D02c286767d56ac03e8037C07e01e98 
+2. Get the adddress of USDC on Ethereum https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48 
+3. Get the ERC20 ABI and save it: https://gist.github.com/veox/8800debbf56e24718f9f483e1e40c35c 
+4. Create a signature topic for ERC20 Tranfer event: 
+5. Make a call to get events with the following
+- topics: [ethers.utils.id('Transfer(address,address,uint256)'), 0x8731d54E9D02c286767d56ac03e8037C07e01e98]
+- address: this is the USDC address, that is => 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48
+- fromBlock: whatever block you want....get use a reasonable starting block from https://etherscan.io/. Ideally, you want a block that is at least 2 days in the past
+6. Create an instance of the ABI object: abi = new ethers.Interface(AppLibraryConfigsABI.abi)
+7. Parse the logs you are getting back: for each event log do the following,abi.parseLog({ topics: log.topics as string[], data: log.data })
+8. Print the results to see of they match what you want
