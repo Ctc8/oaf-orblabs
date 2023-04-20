@@ -4,8 +4,14 @@
   "description": "My cool project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "npx nodemon"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "test": "yarn jest --maxWorkers=1",
+    "start": "ts-node ./src/index.ts",
+    "start:dev": "nodemon",
+    "create-db-migrations": "npx typeorm-ts-node-commonjs migration:generate -d src/data_source.ts",
+    "init-db": "ts-node ./src/db_init.ts",
+    "run-db-migrations": "npx typeorm-ts-node-commonjs migration:run -d src/data_source.ts",
+    "revert-db-migrations": "npx typeorm-ts-node-commonjs migration:revert -d src/data_source.ts"
   },
   "keywords": [
     "crypto",
@@ -15,11 +21,15 @@
   "author": "felix",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^18.15.11",
+    "@types/node": "^18.15.12",
     "typescript": "^5.0.3"
   },
   "dependencies": {
+    "@types/uuid": "^9.0.1",
+    "class-validator": "^0.14.0",
     "ethers": "^6.3.0",
+    "pg": "^8.10.0",
+    "ts-node": "^10.9.1",
     "typeorm": "^0.3.13"
   }
 }

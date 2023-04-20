@@ -242,9 +242,19 @@ Here is the step by step guide:
 3. Get the ERC20 ABI and save it: https://gist.github.com/veox/8800debbf56e24718f9f483e1e40c35c 
 4. Create a signature topic for ERC20 Tranfer event: 
 5. Make a call to get events with the following
-- topics: [ethers.utils.id('Transfer(address,address,uint256)'), 0x8731d54E9D02c286767d56ac03e8037C07e01e98]
+- topics: [ethers.utils.id('Transfer(address,address,uint256)'), ethers.AbiCoder.defaultAbiCoder().encode(["address"], ["0xdf0770df86a8034b3efef0a1bb3c889b8332ff56"])]
 - address: this is the USDC address, that is => 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48
 - fromBlock: whatever block you want....get use a reasonable starting block from https://etherscan.io/. Ideally, you want a block that is at least 2 days in the past
 6. Create an instance of the ABI object: abi = new ethers.Interface(AppLibraryConfigsABI.abi)
 7. Parse the logs you are getting back: for each event log do the following,abi.parseLog({ topics: log.topics as string[], data: log.data })
 8. Print the results to see of they match what you want
+
+## Week 4 -> Saving data to the database
+
+We need to save data to the database. To do that, we need to do the follwowing:
+
+0. install packages pg, @types/uuid, class-validator and ts-node
+1. create transaction table data/transactons.ts and add any other columns you need to add
+2. create db migrations using $ `npm run create-db-migrations src/migrations/<migration_name>`
+3. run the DB migrations using `npm run run-db-migrations`
+- if you ever want to revert migrations, you can use the following `npm run revert-db-migrations`
