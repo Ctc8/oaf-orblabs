@@ -13,16 +13,37 @@ export class Transaction {
   @PrimaryColumn({ name: "id", type: "text", update: false })
   id: string;
 
+  // address of source account
+  @Column({ name: "from", type: "text", update: false })
+  from: string;
+
+  // address of destination account
+  @Column({ name: "to", type: "text", update: false })
+  to: string;
+
+  // the amount that was sent
+  @Column({ name: "amount", type: "bigint", update: false })
+  amount: number;
+
+  // hash of the transaction
   @Column({ name: "transaction_hash", type: "text", update: false })
   transactionHash: string;
 
   @Column({ name: "blockchain", type: "text", update: false })
   blockchain: Blockchain;
 
-  @Column({ name: "amount", type: "bigint", update: false })
-  amount: number;
+  @Column({ name: "gas", type: "bigint", update: false })
+  gas: number;
 
-  // TODO: add all the other fields as necessary here
+  @Column({ name: "gas_price", type: "bigint", update: false })
+  gasPrice: number;
+
+  // this is the price of the native token in USD
+  @Column({ name: "native_token_price", type: "bigint", update: false, nullable: true })
+  nativeTokenPrice?: number;
+
+  @Column({ type: "timestamptz", name: "created_at", update: false })
+  createdAt: Date;
 
   @BeforeInsert()
   // @ts-ignore
@@ -43,10 +64,24 @@ export class Transaction {
     return this.transactionHash == transactionHash && this.blockchain == blockchain;
   }
 
-  static async create(transactionHash: string, blockchain: Blockchain): Promise<Transaction> {
+  static async create(
+    from: string,
+    to: string,
+    amount: number,
+    transactionHash: string,
+    gas: number,
+    gasPrice: number,
+    createdAt: Date
+  ): Promise<Transaction> {
     const transaction = new Transaction();
+    transaction.blockchain = Blockchain.ETHEREUM;
+    transaction.from = from;
+    transaction.to = to;
+    transaction.amount = amount;
     transaction.transactionHash = transactionHash;
-    transaction.blockchain = blockchain;
+    transaction.gas = gas;
+    transaction.gasPrice = gasPrice;
+    transaction.createdAt = createdAt;
 
     const insertResult = await AppDataSource.createQueryBuilder()
       .insert()
@@ -58,9 +93,9 @@ export class Transaction {
 
     if ((insertResult.raw as Array<Transaction>).length == 0) {
       const collidingEntry = await AppDataSource.getRepository(Transaction).findOne({
-        where: { transactionHash, blockchain },
+        where: { transactionHash, blockchain: Blockchain.ETHEREUM },
       });
-      if (collidingEntry?.equal(transactionHash, blockchain)) {
+      if (collidingEntry?.equal(transactionHash, Blockchain.ETHEREUM)) {
         return collidingEntry;
       } else {
         throw {
