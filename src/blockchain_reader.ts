@@ -1,4 +1,4 @@
-import { ethers, TransactionReceipt } from "ethers";
+import { Block, ethers, TransactionReceipt } from "ethers";
 
 export class BlockchainReader {
     private provider: ethers.Provider;
@@ -13,6 +13,10 @@ export class BlockchainReader {
 
     public getTransactionReceipt(transactionHash: string): Promise<TransactionReceipt | null> {
         return this.provider.getTransactionReceipt(transactionHash);
+    }
+
+    public getBlock(transactionHash: string): Promise<Block | null> {
+        return this.provider.getBlock(transactionHash);
     }
 
     public listenToBlockHeaders(eventHandler: (blockNumber: number) => void): void {

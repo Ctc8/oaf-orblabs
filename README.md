@@ -245,7 +245,7 @@ Here is the step by step guide:
 - topics: [ethers.utils.id('Transfer(address,address,uint256)'), ethers.AbiCoder.defaultAbiCoder().encode(["address"], ["0xdf0770df86a8034b3efef0a1bb3c889b8332ff56"])]
 - address: this is the USDC address, that is => 0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48
 - fromBlock: whatever block you want....get use a reasonable starting block from https://etherscan.io/. Ideally, you want a block that is at least 2 days in the past
-6. Create an instance of the ABI object: abi = new ethers.Interface(AppLibraryConfigsABI.abi)
+6. Create an instance of the ABI object: abi = new ethers.Interface(ERC20ABI.abi)
 7. Parse the logs you are getting back: for each event log do the following,abi.parseLog({ topics: log.topics as string[], data: log.data })
 8. Print the results to see of they match what you want
 
@@ -258,3 +258,33 @@ We need to save data to the database. To do that, we need to do the follwowing:
 2. create db migrations using $ `npm run create-db-migrations src/migrations/<migration_name>`
 3. run the DB migrations using `npm run run-db-migrations`
 - if you ever want to revert migrations, you can use the following `npm run revert-db-migrations`
+
+
+## Week 5 -> Reading data from DB + Unit tests
+
+# We want to answer the following questions
+1. What was the overview of transactions that happened today?
+- number of transaction, how many where going out?, how many were coming in?, where were those coming in originating from, where were those leaving going to, etc
+2. What transactions had he highest fee?
+3. What transaction had the lowest fee?
+4. What is the best time to make a transaction?
+
+# Bonus: Unit testing
+1. npm install @types/jest jest ts-jest
+2. Add jest.config.js
+3. Add the test_utils
+4. Update data_source.ts to connect to the right db for tests
+5. Create a test folder and add the factor for transactions
+6. Add the test transaction.test.ts 
+
+To run a particular test file, use the following:
+$ `npm run  test path-to-file`
+e.g. $ `npm run test src/tests/data/transaction.test.ts`
+
+To run a particular test in a file, use the following:
+$ `npm run  test path-to-file -t test-name`
+e.g. $ `npm run  test src/tests/data/transaction.test.ts -t "basic -- data is expected"`
+
+To run all files in a folder, use the following:
+$ `npm run test path-to-folder`
+e.g. $ `npm run  test src/tests`
