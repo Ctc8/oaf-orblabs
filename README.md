@@ -11,9 +11,10 @@
 
 At the end, we want to expose an api that returns the best time for bridging tokens via Stargate or any reasonable bridge.
 
-This repo has some of the code snippets you need for being able to successfully complete this project. Some of the work will be split in weeks so that you can easily follow allow and do the work needed. Here is the rough outline of how we will progress.
+This repo has some of the code snippets you need for being able to successfully complete this project. Some of the work will be split in weeks so that you can easily follow allow and do the work needed. Here is the rough outline of how we will progress. Each week, we build on the work from the previous week. The code for week `x` is saved in the branch called `felix-week-x`
 
 **Week 1**: `[Intro to blockchains]` Blockchain concepts and intro
+
 - What are blockchains
 - Tokens (fungible and non-fungible)
 - Bridges
