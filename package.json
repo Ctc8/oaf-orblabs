@@ -4,13 +4,29 @@
   "description": "**The goal for this project is to help you get fundamentals of backend engineering.** We will be focusing on the following areas:",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "test": "yarn jest --maxWorkers=1",
+    "start": "ts-node ./src/index.ts",
+    "create-db-migrations": "npx typeorm-ts-node-commonjs migration:generate -d src/data_source.ts",
+    "run-db-migrations": "npx typeorm-ts-node-commonjs migration:run -d src/data_source.ts",
+    "revert-db-migrations": "npx typeorm-ts-node-commonjs migration:revert -d src/data_source.ts",
+    "start:dev": "npx nodemon"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.7.2",
+    "@types/uuid": "^9.0.6",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "ethers": "^6.8.0",
+    "pg": "^8.11.3",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.17",
+    "uuid": "^9.0.1"
   }
 }
