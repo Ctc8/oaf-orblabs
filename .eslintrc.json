@@ -1,0 +1,36 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint", "prettier"],
+    "extends": [
+      "airbnb",
+      "prettier",
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "airbnb-typescript/base"
+    ],
+    "parserOptions": {
+      "project": "./tsconfig.json",
+      "createDefaultProgram": true
+    },
+    "rules": {
+      "prettier/prettier": "error",
+      "max-len": [2, { "code": 120, "tabWidth": 4, "ignoreUrls": true }],
+      "no-console": "off",
+      "no-await-in-loop": "off",
+      "@typescript-eslint/comma-dangle": ["off", "never"],
+      "@typescript-eslint/eqeqeq": "off",
+      "class-methods-use-this": "off",
+      "import/prefer-default-export": "off",
+      "import/no-cycle": "off",
+      "@typescript-eslint/indent": "off",
+      "operator-linebreak": "off",
+      "@typescript-eslint/no-unused-vars": [2, { "argsIgnorePattern": "^_" }],
+      "import/no-extraneous-dependencies": "off",
+      "object-curly-newline": "off",
+      "implicit-arrow-linebreak": "off",
+      "function-paren-newline": "off",
+      "no-else-return": [{ "allowElseIf": true }]
+    }
+  }
